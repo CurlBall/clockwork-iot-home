@@ -1,4 +1,4 @@
-# clockwork-iot-home
+# Klåckwörk
 ## Ideas
 - Almanac
 - Daily/Monthly/Yearly Reminders
