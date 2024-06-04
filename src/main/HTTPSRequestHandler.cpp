@@ -2,15 +2,24 @@
 #include "HTTPSRequestHandler.h"
 #include "Logging.h"
 #include <WiFiClientSecure.h>
-#include <WiFiClient.h>
 #include <HTTPClient.h>
 
-HTTPSRequestHandler::HTTPSRequestHandler(const char* url) {
+/*
+However the GET result should be handled, could possibly be done with strategy pattern?
+Or, assuming most if not all requests will include stuff in .json format, an overloaded
+method could take a JsonDocument (filter) as an argument, and only necessary data would be retrieved.
+If content size is too large, reading one jsonObject at a time could become simplified and reusable.
+Might still be a good idea to have that be modular though?
+*/
+
+HTTPSRequestHandler::HTTPSRequestHandler(const char* url, const char* rootCA) {
   // c-strings are the bane of my existence. This inspires:
   // https://forum.arduino.cc/t/more-with-char-arrays-and-class-functions/674431/7
   if(!setUrl(url)) {
     _url[0] = '\0';
   }
+
+  _wifiClient.setCACert(rootCA);  // Assuming I don't have to save it.
 
   Logging::writeln("Constructor finished.");
 }

@@ -10,12 +10,12 @@ class HTTPSRequestHandler {
   private:
     static constexpr byte MAX_URL_SIZE = 182; // Somewhat arbitrary number. 
     char _url[MAX_URL_SIZE];   // Holy shit, this works?
-    WiFiClient _wifiClient;
+    WiFiClientSecure _wifiClient;
     HTTPClient _httpClient;
     bool isValidUrl(const char* url);
     bool setUrl(const char* newUrl);
   public:
-    HTTPSRequestHandler(const char* url); // Remember to strcpy probably.
+    HTTPSRequestHandler(const char* url, const char* rootCA); // Remember to strcpy probably.
     ~HTTPSRequestHandler();
     bool GET();
     String getString();
