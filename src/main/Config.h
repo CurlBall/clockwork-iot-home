@@ -1,10 +1,10 @@
-#ifndef Config_h
-#define Config_h
+#ifndef config_h
+#define config_h
 
-class Config {
+class config {
    public:
     static constexpr const char* ssid = "SSID";
-    static constexpr const char* wifiPassword = "Wifi Password";
+    static constexpr const char* wifiPassword = "WiFiPassword";
 };
 
 #endif
