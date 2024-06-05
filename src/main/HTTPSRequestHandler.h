@@ -5,6 +5,9 @@
 #include <WiFiClient.h>
 #include <HTTPClient.h>
 
+// If concurrent connections doesn't work (https://github.com/Seeed-Studio/Seeed_Arduino_rpcWiFi/issues/16), consider singleton? Maybe?
+// Getting root CA certificates is an inconsistent process. Fix on demand.
+// Consider making a HTTPRequestHandler which handles regular http connections, like that of openweathermap.org.
 // This object could actually be saved and reused.
 class HTTPSRequestHandler {
   private:
