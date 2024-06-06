@@ -1,8 +1,10 @@
 # Klåckwörk
 ## Ideas
 - Almanac
+  - Categorized roughly as small, normal or big events, which changes how far ahead in the future they are shown.
 - Daily/Monthly/Yearly Reminders
 - Holy shit, a virtual keyboard?
+- Primitive PC application that is used for defining events and reminders, as well as changing some settings. Start with a console program. 
 
 ## Requirements (Wio)
 I don't like it, but I'm gonna have to go along with it!
