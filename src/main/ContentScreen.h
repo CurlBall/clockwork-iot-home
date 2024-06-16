@@ -12,6 +12,7 @@ class ContentScreen {
     virtual void drawScreen() = 0;
     virtual void updateContent() = 0;
     bool hasChanged();
+    void setTftReference(TFT_eSPI* tft);
 };
 
 #endif

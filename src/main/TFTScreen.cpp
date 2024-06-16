@@ -59,6 +59,7 @@ bool TFTScreen::addScreen(ContentScreen* newScreen) {
     return false;
   }
 
+  newScreen->setTftReference(&_tft);
   _allScreens[_numOfScreens] = newScreen;
   _numOfScreens++;
   if(_currentScreenIndex == -1) {
