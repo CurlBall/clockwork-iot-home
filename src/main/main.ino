@@ -1,18 +1,21 @@
 #include <Arduino.h>
-#include <TFT_eSPI.h>
 #include <rpcWiFi.h>
 
 #include "config.h"
 #include "rootCertificates.h"
 #include "Logging.h"
 #include "HTTPSRequestHandler.h"
+#include "TFTScreen.h"
 
 //#define DEBUG_ON 1; // Will uncomment when I figure out a good way for this to be referenced
 
-TFT_eSPI tft;
+TFTScreen* tftScreen;
 
 void setup() {
   Logging::writeln("Running setup... ");
+
+  // 2"4 LCD setup
+  tftScreen = TFTScreen::getInstance();
 
   // WiFi setup
   if(setupWifi()) {
