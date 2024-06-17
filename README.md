@@ -19,6 +19,7 @@ I don't like it, but I'm gonna have to go along with it!
 - R7: The system shall warn the user of high CO2 levels.
 - R8: The system shall remind the user of regularly occuring chores.
 - R9: The system shall warn the user when it's battery is running out.
+- R10: The state of the Wio's environment shall be monitorable via a smartphone app. (Possibly Blynk on iOS)
 
 
 ### Non-Functional Requirements
