@@ -5,7 +5,7 @@
 
 // For polymorphism, one may need to use a pointer to the base class: https://www.ibm.com/docs/en/zos/2.4.0?topic=only-abstract-classes-c
 class ContentScreen {
-  private:
+  protected:
     TFT_eSPI* _tftRef;
     bool _hasChanged;
   public:

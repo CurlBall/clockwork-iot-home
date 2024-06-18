@@ -2,7 +2,13 @@
 #include "Logging.h"
 
 bool ContentScreen::hasChanged() {
-  return _hasChanged;
+  if(_hasChanged == true) {
+    _hasChanged = false;
+    return true;
+  }
+  else {
+    return false;
+  }
 }
 
 void ContentScreen::setTftReference(TFT_eSPI* tft) {
