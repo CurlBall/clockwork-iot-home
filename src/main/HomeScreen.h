@@ -1,8 +1,8 @@
-#include <stdint.h>
 #ifndef HomeScreen_h
 #define HomeScreen_h
 
 #include <Arduino.h>
+#include <stdint.h>
 #include <TFT_eSPI.h>
 #include <examples/320x240/All_Free_Fonts_Demo/Free_Fonts.h>
 #include "TimeRTC.h"
