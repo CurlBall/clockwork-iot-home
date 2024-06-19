@@ -9,6 +9,7 @@
 #include <WiFiUdp.h>
 #include <Timezone.h>
 
+constexpr const char TimeRTC::_weekDays[7][10];   // I don't understand C++
 
 TimeRTC::TimeRTC() {
   _rtc = new RTC_SAMD51();
@@ -93,3 +94,6 @@ uint16_t TimeRTC::getYear() {
   return _rtc->now().year();
 }
 
+const char* TimeRTC::getWeekday() {
+  return _weekDays[_rtc->now().dayOfTheWeek()];
+}

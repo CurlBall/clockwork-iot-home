@@ -12,6 +12,7 @@
 
 class TimeRTC {
   private:
+    static constexpr const char _weekDays[7][10] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
     RTC_SAMD51* _rtc;
     WiFiUDP _ntpUDP;
     NTPClient* _ntpClient;
@@ -28,6 +29,7 @@ class TimeRTC {
     uint8_t getDay();
     uint8_t getMonth();
     uint16_t getYear();
+    const char* getWeekday();
 };
 
 #endif
