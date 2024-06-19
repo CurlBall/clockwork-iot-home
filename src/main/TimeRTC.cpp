@@ -44,7 +44,7 @@ TimeRTC* TimeRTC::getInstance() {
 
 bool TimeRTC::synchronize() {
   if(WiFi.status() != WL_CONNECTED) {
-    Logging::writeln("TimeRTC couldn't synchronize. Bad connection.", LoggingLevel::Warning);
+    Logging::writeln("TimeRTC couldn't synchronize. Bad connection.", LoggingLevel::Error);
     return false;
   }
   else if(_ntpClient->update()) {
