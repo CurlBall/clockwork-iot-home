@@ -15,6 +15,10 @@ HomeScreen::HomeScreen() {
   _isRedrawQueued = true;
 }
 
+HomeScreen::~HomeScreen() {
+  Logging::writeln("HomeScreen deleted!");
+}
+
 void HomeScreen::drawScreen() {
   const uint16_t sidePadding = 6;
   const uint16_t clockXPos = TFTSCREEN_MAX_X - sidePadding;

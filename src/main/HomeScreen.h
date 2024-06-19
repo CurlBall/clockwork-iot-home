@@ -23,7 +23,7 @@ class HomeScreen : public ContentScreen {
     void updateDateDisplay();
   public:
     HomeScreen();
-    ~HomeScreen();
+    virtual ~HomeScreen() override;
     virtual void drawScreen() override;
     virtual void updateContent() override;
 };

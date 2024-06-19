@@ -1,6 +1,10 @@
 #include "ContentScreen.h"
 #include "Logging.h"
 
+ContentScreen::~ContentScreen() {
+  Logging::writeln("ContentScreen child deleted!");
+}
+
 bool ContentScreen::hasChanged() {
   if(_isRedrawQueued == true) {
     _isRedrawQueued = false;
