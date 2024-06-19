@@ -6,6 +6,7 @@
 #include <DateTime.h>
 #include <WiFiUdp.h>
 #include <NTPClient.h>
+#include <Timezone.h>
 
 // Why not use the TimeZone library? https://forum.arduino.cc/t/adding-code-for-daylight-savings-time/1017146/8
 
@@ -14,6 +15,9 @@ class TimeRTC {
     RTC_SAMD51* _rtc;
     WiFiUDP _ntpUDP;
     NTPClient* _ntpClient;
+    TimeChangeRule* _summerTime;
+    TimeChangeRule* _standardTime;
+    Timezone* _timezone;
     TimeRTC();
   public:
     static TimeRTC* getInstance();

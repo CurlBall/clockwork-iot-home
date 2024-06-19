@@ -1,16 +1,22 @@
-#include <stdint.h>
 #include "TimeRTC.h"
+#include "Logging.h"
+#include "config.h"
+#include <stdint.h>
 #include <RTC_SAMD51.h>
 #include <DateTime.h>
 #include <rpcWiFi.h>
 #include <NTPClient.h>
 #include <WiFiUdp.h>
+#include <Timezone.h>
 
-#include "Logging.h"
 
 TimeRTC::TimeRTC() {
   _rtc = new RTC_SAMD51();
   _rtc->begin();
+
+  _summerTime = new TimeChangeRule(config::summerTime);
+  _standardTime = new TimeChangeRule(config::standardTime);
+  _timezone = new Timezone(*_summerTime, *_standardTime);
 
   _ntpClient = new NTPClient(_ntpUDP, "pool.ntp.org");
   _ntpClient->begin();
@@ -41,12 +47,12 @@ bool TimeRTC::synchronize() {
     return false;
   }
   else if(_ntpClient->update()) {
-    // NTP stuff
-    // Not sure these 3 loc will work.
+    // Get unix timestamp and convert to local time
     unsigned long epochTime = _ntpClient->getEpochTime();
+    epochTime = _timezone->toLocal(epochTime);
+
+    // Set RTC
     DateTime now(epochTime);
-    Logging::write("DateTime year: ");
-    Logging::writeln(now.year());
     _rtc->adjust(now);
 
     Logging::writeln("RTC adjusted.");
