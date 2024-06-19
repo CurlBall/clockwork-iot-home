@@ -1,3 +1,4 @@
+#include <stdint.h>
 #ifndef HomeScreen_h
 #define HomeScreen_h
 
@@ -14,7 +15,12 @@ class HomeScreen : public ContentScreen {
     uint8_t _hour;
     uint8_t _minute;
     uint8_t _second;
+    uint8_t _day;
+    uint8_t _month;
+    uint16_t _year;
+    const char* _weekday;
     void updateClockDisplay();
+    void updateDateDisplay();
   public:
     HomeScreen();
     ~HomeScreen();
