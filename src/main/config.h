@@ -1,6 +1,8 @@
 #ifndef config_h
 #define config_h
 
+#include <Timezone.h>
+
 class config {
    public:
     static constexpr const char* ssid = "SSID";
