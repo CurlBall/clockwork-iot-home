@@ -21,7 +21,7 @@ void HomeScreen::drawScreen() {
   const uint16_t clockYPos = TFTSCREEN_STATUSBAR_THICKNESS + 10;
   const uint16_t dateXPos = clockXPos;
   const uint16_t dateYPos = clockYPos + 40;
-  const uint16_t weekdayXPos = clockXPos;  // UUUUHHHH
+  const uint16_t weekdayXPos = clockXPos;
   const uint16_t weekdayYPos = dateYPos + 20;
 
   // Format time
@@ -34,7 +34,7 @@ void HomeScreen::drawScreen() {
 
   // Almost a have to do thing is to choose the correct font/size/etc.
   // Maybe use template pattern?
-  _tftRef->setTextDatum(2);
+  _tftRef->setTextDatum(TR_DATUM);
   _tftRef->setTextColor(TFT_GREEN, TFT_BLACK);
   _tftRef->setFreeFont(_clockFont);
   _tftRef->setTextSize(2);
