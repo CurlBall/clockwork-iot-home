@@ -12,7 +12,7 @@ bool Logging::canWrite() {
   }
 
   // Don't write if not in debug
-  return DEBUG_ON || Serial;
+  return DEBUG_ON && Serial;
 }
 
 void Logging::write(const char* message, LoggingLevel logLevel) { 
