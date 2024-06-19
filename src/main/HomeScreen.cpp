@@ -12,7 +12,7 @@ HomeScreen::HomeScreen() {
   updateClockDisplay();
   updateDateDisplay();
   _clockFont = &FreeMonoBold12pt7b;
-  _hasChanged = true;
+  _isRedrawQueued = true;
 }
 
 void HomeScreen::drawScreen() {
@@ -54,7 +54,7 @@ void HomeScreen::updateContent() {
     if(_timeRTC->getDay() != _day) {
       updateDateDisplay();
     }
-    _hasChanged = true;
+    _isRedrawQueued = true;
   }
 }
 

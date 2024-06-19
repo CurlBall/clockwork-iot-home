@@ -7,7 +7,7 @@
 class ContentScreen {
   protected:
     TFT_eSPI* _tftRef;
-    bool _hasChanged;
+    bool _isRedrawQueued;
   public:
     virtual void drawScreen() = 0;
     virtual void updateContent() = 0;

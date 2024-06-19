@@ -2,8 +2,8 @@
 #include "Logging.h"
 
 bool ContentScreen::hasChanged() {
-  if(_hasChanged == true) {
-    _hasChanged = false;
+  if(_isRedrawQueued == true) {
+    _isRedrawQueued = false;
     return true;
   }
   else {
