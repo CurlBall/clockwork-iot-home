@@ -1,9 +1,8 @@
 #include "HomeScreen.h"
 #include "ContentScreen.h"
 #include "TimeRTC.h"
-#include "TFTScreen.h"
 #include "Logging.h"
-
+#include "TFTScreen.h"
 #include <TFT_eSPI.h>
 #include <examples/320x240/All_Free_Fonts_Demo/Free_Fonts.h>
 
@@ -11,7 +10,7 @@ HomeScreen::HomeScreen() {
   _timeRTC = TimeRTC::getInstance();  // NOTE: Shared instance
   updateClockDisplay();
   updateDateDisplay();
-  _clockFont = &FreeMonoBold12pt7b;
+  _clockFont = TFTSCREEN_DEFAULT_FONT;
   _isRedrawQueued = true;
 }
 
@@ -39,7 +38,7 @@ void HomeScreen::drawScreen() {
   // Almost a have to do thing is to choose the correct font/size/etc.
   // Maybe use template pattern?
   _tftRef->setTextDatum(TR_DATUM);
-  _tftRef->setTextColor(TFT_GREEN, TFT_BLACK);
+  _tftRef->setTextColor(TFTSCREEN_DEFAULT_TEXT_COLOR, TFTSCREEN_DEFAULT_BG_COLOR);
   _tftRef->setFreeFont(_clockFont);
   _tftRef->setTextSize(2);
   _tftRef->drawString(clockStr, clockXPos, clockYPos);

@@ -7,7 +7,7 @@
 
 // Screen constraints
 // Should be kept customizable
-#define MAX_NUM_OF_SCREENS 8
+#define TFTSCREEN_MAX_CSCREENS 8
 #define TFTSCREEN_MAX_Y 239
 #define TFTSCREEN_MAX_X 319
 #define TFTSCREEN_STATUSBAR_THICKNESS 36        // 'Thickness' to semantically make sense if going for either vertical/horizontal statusbar
@@ -19,7 +19,7 @@ class TFTScreen {
   private:
     TFT_eSPI _tft;
     ContentScreen* _activeScreen;
-    ContentScreen* _allScreens[MAX_NUM_OF_SCREENS];
+    ContentScreen* _allScreens[TFTSCREEN_MAX_CSCREENS];
     uint8_t _numOfScreens;
     uint8_t _currentScreenIndex;
     TFTScreen();

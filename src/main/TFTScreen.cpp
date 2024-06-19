@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <TFT_eSPI.h>
+#include <examples/320x240/All_Free_Fonts_Demo/Free_Fonts.h>
 #include "TFTScreen.h"
 #include "Logging.h"
 #include "ContentScreen.h"
@@ -7,9 +8,17 @@
 TFTScreen::TFTScreen() {
   _numOfScreens = 0;
   _currentScreenIndex = -1;
+
+  //_defaultBGcolor = TFT_BLACK;
+  //_defaultTextColor = TFT_GREEN;
+  //_defaultFont = &FreeMonoBold12pt7b;
+
+
   _tft.begin();
   _tft.setRotation(3);
-  _tft.fillScreen(TFT_BLACK);
+  _tft.fillScreen(TFTSCREEN_DEFAULT_BG_COLOR);
+  _tft.setTextColor(TFTSCREEN_DEFAULT_TEXT_COLOR);
+  _tft.setFreeFont(TFTSCREEN_DEFAULT_FONT);
 
   // Screen test
   if(DEBUG_ON) {
@@ -19,13 +28,9 @@ TFTScreen::TFTScreen() {
     _tft.drawPixel(319, 0, TFT_MAGENTA);   // Top Right
   }
 
-  Logging::writeln("Setting text color");
-  _tft.setTextColor(TFT_GREENYELLOW);
-  Logging::writeln("Setting text size");
-  _tft.setTextSize(5);
-  _tft.setTextFont(1);
-  Logging::writeln("Writing text");
-  _tft.drawString("KLOCKWORK", 20, 20);
+  _tft.setTextSize(2);
+  _tft.setTextDatum(MC_DATUM);
+  _tft.drawString("KLOCKWORK", TFTSCREEN_MAX_X / 2, TFTSCREEN_MAX_Y / 2);
   Logging::writeln("Constructor done");
 }
 
@@ -53,9 +58,9 @@ void TFTScreen::update() {
 
 void TFTScreen::nextScreen() {
   // Clear screen (Should probably use an attribute for this, BG colour or something)
-  _tft.fillScreen(TFT_BLACK);
+  _tft.fillScreen(TFTSCREEN_DEFAULT_BG_COLOR);
 
-  // Redraw StatusBar [TEMP]
+  // Redraw StatusBar [TEMP] (Should do with the colours as I did with TFTSCREEN_DEFAULT_BG_COLOR and the like)
   _tft.fillRect(0, 0, TFTSCREEN_MAX_X, TFTSCREEN_STATUSBAR_THICKNESS, TFT_DARKCYAN);
   _tft.drawLine(0, TFTSCREEN_STATUSBAR_THICKNESS, TFTSCREEN_MAX_X, TFTSCREEN_STATUSBAR_THICKNESS, TFT_WHITE);
 
@@ -69,7 +74,7 @@ void TFTScreen::nextScreen() {
 }
 
 bool TFTScreen::addScreen(ContentScreen* newScreen) {
-  if(_numOfScreens == MAX_NUM_OF_SCREENS) {
+  if(_numOfScreens == TFTSCREEN_MAX_CSCREENS) {
     Logging::writeln("Max number of screens exceeded!", LoggingLevel::Error);
     return false;
   }
