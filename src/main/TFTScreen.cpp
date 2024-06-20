@@ -4,21 +4,25 @@
 #include "TFTScreen.h"
 #include "Logging.h"
 #include "ContentScreen.h"
+#include "TextSettings.h"
+#include "ScreenElement.h"
 
 TFTScreen::TFTScreen() {
   _numOfScreens = 0;
   _currentScreenIndex = -1;
-
-  //_defaultBGcolor = TFT_BLACK;
-  //_defaultTextColor = TFT_GREEN;
-  //_defaultFont = &FreeMonoBold12pt7b;
-
 
   _tft.begin();
   _tft.setRotation(3);
   _tft.fillScreen(TFTSCREEN_DEFAULT_BG_COLOR);
   _tft.setTextColor(TFTSCREEN_DEFAULT_TEXT_COLOR);
   _tft.setFreeFont(TFTSCREEN_DEFAULT_FONT);
+
+  // Pass TFT references. 
+  // I'm not happy with this. 
+  // I should wrap the object in a singleton.
+  // I fucking love singletons
+  ScreenElement::setTftReference(&_tft);
+  TextSettings::setTftReference(&_tft);
 
   // Screen test
   if(DEBUG_ON) {
