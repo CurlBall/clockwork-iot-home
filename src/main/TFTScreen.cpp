@@ -75,6 +75,7 @@ void TFTScreen::nextScreen() {
   }
 
   _activeScreen = _allScreens[_currentScreenIndex];
+  _activeScreen->drawScreenForced();
 }
 
 bool TFTScreen::addScreen(ContentScreen* newScreen) {
