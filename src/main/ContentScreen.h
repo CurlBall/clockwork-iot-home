@@ -4,7 +4,9 @@
 // Definitions can be found in TFT_eSPI.h, Free_Fonts.h and the like
 #define TFTSCREEN_DEFAULT_BG_COLOR TFT_BLACK
 #define TFTSCREEN_DEFAULT_TEXT_COLOR TFT_GREEN
+#define TFTSCREEN_DEFAULT_TEXT_SIZE 1
 #define TFTSCREEN_DEFAULT_FONT FF6
+#define TFTSCREEN_DEFAULT_PADDING 0   // Kinda temp
 
 #include <TFT_eSPI.h>
 
