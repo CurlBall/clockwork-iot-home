@@ -10,7 +10,7 @@ TFT_eSPI* TextSettings::_tftRef = nullptr;
 
 // 
 void TextSettings::setTftReference(TFT_eSPI *tftRef) {
-  if(_tftRef != nullptr) {
+  if(_tftRef == nullptr) {
     _tftRef = tftRef;
   }
   else {
@@ -19,7 +19,7 @@ void TextSettings::setTftReference(TFT_eSPI *tftRef) {
 }
 
 TextSettings::TextSettings() {
-  if(_tftRef != nullptr) {
+  if(_tftRef == nullptr) {
     Logging::writeln("TextSettings::_tftRef wasn't set", LoggingLevel::Cataclysmic);
     delay(10000);
   }
