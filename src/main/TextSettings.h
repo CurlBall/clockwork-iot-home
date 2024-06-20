@@ -12,6 +12,7 @@ class TextSettings {
     uint16_t _textPadding;
     uint32_t _textColor;
     uint8_t _textSize;
+    uint8_t _textDatum;
   public:
     static void setTftReference(TFT_eSPI* tftRef);
     TextSettings();
@@ -21,6 +22,7 @@ class TextSettings {
     void setTextPadding(uint16_t padding);
     void setTextColor(uint32_t color);
     void setTextSize(uint8_t size);
+    void setTextDatum(uint8_t datum);
 };
 
 #endif

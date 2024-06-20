@@ -29,15 +29,15 @@ TextSettings::TextSettings() {
   _textPadding = TFTSCREEN_DEFAULT_PADDING;
   _textColor = TFTSCREEN_DEFAULT_TEXT_COLOR;
   _textSize = TFTSCREEN_DEFAULT_TEXT_SIZE;
+  _textDatum = TFTSCREEN_DEFAULT_TEXT_DATUM;
 }
 
 void TextSettings::apply() {
-  if(_tftRef != nullptr)
-  _tftRef->setTextDatum(MC_DATUM);
   _tftRef->setFreeFont(_font);
   _tftRef->setTextColor(_textColor, _bgColor);
   _tftRef->setTextPadding(_textPadding);
   _tftRef->setTextSize(_textSize);
+  _tftRef->setTextDatum(_textDatum);
 }
 
 void TextSettings::setFont(const GFXfont* font) {
@@ -58,4 +58,8 @@ void TextSettings::setTextColor(uint32_t color) {
 
 void TextSettings::setTextSize(uint8_t size) {
   _textSize = size;
+}
+
+void TextSettings::setTextDatum(uint8_t datum) {
+  _textDatum = datum;
 }
