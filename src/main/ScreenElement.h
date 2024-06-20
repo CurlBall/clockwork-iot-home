@@ -9,14 +9,12 @@ class ScreenElement {
   protected:
     static TFT_eSPI* _tftRef;
     bool _isRedrawQueued;
-    Point* _topLeft;
-    Point* _bottomRight;
-    Point* _middle;
+    Point* _referencePoint;   // Text will be drawn from here, works in conjunction with TextSettings::_textDatum
     TextSettings* _textSettings;
   public:
     static void setTftReference(TFT_eSPI* tftRef);
-    ScreenElement(Point* topLeftCorner, Point* bottomRightCorner);
-    ScreenElement(Point* topLeftCorner, Point* bottomRightCorner, TextSettings* textSettings);
+    ScreenElement(Point* referencePoint);
+    ScreenElement(Point* referencePoint, TextSettings* textSettings);
     virtual ~ScreenElement();
     void drawElement(const char* content);
     void queueForRedraw(bool isChanged = true);

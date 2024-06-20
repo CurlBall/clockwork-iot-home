@@ -10,29 +10,23 @@ void ScreenElement::setTftReference(TFT_eSPI *tftRef) {
   _tftRef = tftRef;
 }
 
-ScreenElement::ScreenElement(Point* topLeftCorner, Point* bottomRightCorner) {
-  _topLeft = topLeftCorner;
-  _bottomRight = bottomRightCorner;
-  _middle = Point::getMiddlePoint(_topLeft, _bottomRight);
+ScreenElement::ScreenElement(Point* referencePoint) {
+  _referencePoint = referencePoint;
 }
 
-ScreenElement::ScreenElement(Point* topLeftCorner, Point* bottomRightCorner, TextSettings* textSettings) 
-  : ScreenElement(topLeftCorner, bottomRightCorner) {   // Idk if this works
+ScreenElement::ScreenElement(Point* referencePoint, TextSettings* textSettings) 
+  : ScreenElement(referencePoint) {   // Idk if this works
   _textSettings = textSettings;
 }
 
 ScreenElement::~ScreenElement() {
-  // Should the point objects be deleted? 
-  // I'm thinking none of the references should be deleted,
-  // since they may be passed amongs eachother, possibly.
-  // _middle can be removed though.
   Logging::writeln("Deleting Screen Element");
-  delete _middle;
+  delete _referencePoint;
 }
 
 void ScreenElement::drawElement(const char* content) {
   _textSettings->apply();
-  _tftRef->drawString(content, _middle->x, _middle->y);
+  _tftRef->drawString(content, _referencePoint->x, _referencePoint->y);
   _isRedrawQueued = false;
 }
 
