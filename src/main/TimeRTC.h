@@ -8,8 +8,6 @@
 #include <NTPClient.h>
 #include <Timezone.h>
 
-// Why not use the TimeZone library? https://forum.arduino.cc/t/adding-code-for-daylight-savings-time/1017146/8
-
 class TimeRTC {
   private:
     static constexpr const char _weekDays[7][10] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
