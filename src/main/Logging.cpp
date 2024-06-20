@@ -1,21 +1,18 @@
 #include <Arduino.h>
 #include "Logging.h"
 
-#define DEFAULT_BAUD_RATE 19200
-
 bool Logging::canWrite() {
-  // Don't write if not in debug
-  if(!DEBUG_ON) {
-    return false;
-  }
+  static bool serialInitialized = false;
 
   // Init Serial if not already initialized
-  if(!Serial) {
+  if(!Serial && !serialInitialized) {
     Serial.begin(DEFAULT_BAUD_RATE);
-    while(!Serial);
+    serialInitialized = true;
+    delay(500);
   }
 
-  return true;
+  // Don't write if not in debug
+  return DEBUG_ON && Serial;
 }
 
 void Logging::write(const char* message, LoggingLevel logLevel) { 

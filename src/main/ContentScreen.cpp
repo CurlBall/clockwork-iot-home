@@ -1,8 +1,18 @@
 #include "ContentScreen.h"
 #include "Logging.h"
 
+ContentScreen::~ContentScreen() {
+  Logging::writeln("ContentScreen child deleted!");
+}
+
 bool ContentScreen::hasChanged() {
-  return _hasChanged;
+  if(_isRedrawQueued == true) {
+    _isRedrawQueued = false;
+    return true;
+  }
+  else {
+    return false;
+  }
 }
 
 void ContentScreen::setTftReference(TFT_eSPI* tft) {

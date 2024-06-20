@@ -1,2 +1,2 @@
 ### Ye ol' .gitignore
-config.h
+src/main/config.h

@@ -6,16 +6,20 @@
 #include "Logging.h"
 #include "HTTPSRequestHandler.h"
 #include "TFTScreen.h"
+#include "HomeScreen.h"
 
 //#define DEBUG_ON 1; // Will uncomment when I figure out a good way for this to be referenced
 
 TFTScreen* tftScreen;
 
 void setup() {
+  //Logging::writeln("Waiting 5 seconds...");
+  //delay(5000);
   Logging::writeln("Running setup... ");
 
-  // 2"4 LCD setup
+  Logging::writeln("Initializing TFTScreen");
   tftScreen = TFTScreen::getInstance();
+
 
   // WiFi setup
   if(setupWifi()) {
@@ -26,20 +30,16 @@ void setup() {
     Logging::writeln("WiFi setup failure", LoggingLevel::Warning);
   }
 
-  // Breathing space in case crashes forces one to reset hardware
-  Logging::writeln("Starting");
-  for(int i = 0; i < 5; i++) {
-    Logging::write(".");
-    delay(1000);
-  }
-  Logging::writeln("");
+  // Add screens
+  tftScreen->addScreen(new HomeScreen());
   
   Logging::writeln("Setup complete. Entering loop.");
 }
 
 
 void loop() {
-
+  tftScreen->update();
+  delay(40);
 }
 
 bool setupWifi() {

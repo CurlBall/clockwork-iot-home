@@ -2,6 +2,7 @@
 #define Logging_h
 
 #define DEBUG_ON 1 // Shouldn't be here, but... Well.
+#define DEFAULT_BAUD_RATE 19200
 
 enum class LoggingLevel : int {
   Normal = 0,
