@@ -9,7 +9,7 @@ class Point {
     const int16_t y; // Am I breaking the law?
     Point(int16_t x, int16_t y);
     ~Point();
-    static Point getMiddlePoint(Point* p1, Point* p2);
+    static Point* getMiddlePoint(Point* p1, Point* p2);
 };
 
 #endif
