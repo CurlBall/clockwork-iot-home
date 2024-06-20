@@ -7,7 +7,8 @@
 enum class LoggingLevel : int {
   Normal = 0,
   Warning,
-  Error
+  Error,
+  Cataclysmic
 };
 
 class Logging {

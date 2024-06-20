@@ -26,6 +26,9 @@ void Logging::write(const char* message, LoggingLevel logLevel) {
   else if(logLevel == LoggingLevel::Error) {
     Serial.write("[ERROR] : ");
   }
+  else if(logLevel == LoggingLevel::Cataclysmic) {
+    Serial.write("!!! [YOU FUCKING DUMBASS] !!! : ");
+  }
   Serial.write(message);
 }
 
