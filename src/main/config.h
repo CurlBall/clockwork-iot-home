@@ -11,8 +11,8 @@ class config {
     // numberOfNetworks should be manually changed, depending on how many networks are used.
     static constexpr uint8_t numberOfNetworks = 2;
     static constexpr const char* wifiCredentials[numberOfNetworks][2] = {
-      {"SSID1", "SSID2"},
-      {"PASS1", "PASS2"}
+      {"SSID1", "PASS1"},
+      {"SSID2", "PASS2"}
     };
 
     // For default time, it works during summer. For winter, I'm not so sure...
