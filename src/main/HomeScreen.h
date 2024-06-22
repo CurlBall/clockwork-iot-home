@@ -11,8 +11,6 @@
 
 class HomeScreen : public ContentScreen {
   private:
-    const GFXfont* _clockFont;
-
     // Holy shit these are classes.
     ScreenElement* _clockElement;
     TimeRTC* _timeRTC;
