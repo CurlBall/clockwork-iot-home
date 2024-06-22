@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <rpcWiFi.h>
+#include <WiFiMulti.h>
 
 #include "config.h"
 #include "rootCertificates.h"
@@ -10,7 +11,9 @@
 
 //#define DEBUG_ON 1; // Will uncomment when I figure out a good way for this to be referenced
 
+
 TFTScreen* tftScreen;
+WiFiMulti wifiMulti;
 
 void setup() {
   //Logging::writeln("Waiting 5 seconds...");
@@ -43,19 +46,25 @@ void loop() {
 }
 
 bool setupWifi() {
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(config::ssid, config::wifiPassword);
-
-  uint8_t timeOutSec = 15;
-  for(uint8_t i = 0; i < timeOutSec; i++) {
-    Logging::writeln("Connecting...");
-    if(WiFi.status() == WL_CONNECTED) {
-      return true;
-    }
-    
-    delay(1000);
+  for(int i = 0; i < config::numberOfNetworks; i++) {
+    Logging::writeln(i + 1);
+    Logging::writeln(config::wifiCredentials[i][0]);
+    Logging::writeln(config::wifiCredentials[i][1]);
+    wifiMulti.addAP(
+      config::wifiCredentials[i][0], 
+      config::wifiCredentials[i][1]
+    );
   }
 
-  // Couldn't connect
-  return false;
+  Logging::writeln("Connecting to WiFi");
+  bool wifiSuccess = wifiMulti.run() == WL_CONNECTED;
+  if(wifiSuccess) {
+    Logging::write("WiFi connection success. Network: ");
+    Logging::writeln(WiFi.localIP());
+  }
+  else {
+    Logging::writeln("WiFi connection failure", LoggingLevel::Warning);
+  }
+
+  return wifiSuccess;
 }
