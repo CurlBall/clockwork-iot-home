@@ -46,11 +46,8 @@ HomeScreen::HomeScreen() {
     dateSettings
   );
 
-  delay(2000);
-
   updateClockDisplay();
   updateDateDisplay();
-  drawScreenForced();
 }
 
 HomeScreen::~HomeScreen() {
