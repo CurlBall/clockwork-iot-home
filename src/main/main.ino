@@ -23,7 +23,7 @@
 - Time (Michael Margolis) (Maybe automatically downloads for Timezone lib?): http://librarymanager#Time
 - Timezone (Jack Christensen): http://librarymanager#Timezone
 
-    Download manually and Sketch > Include Library > Add .ZIP Library:  §
+    Download manually and Sketch > Include Library > Add .ZIP Library:
 - TFT_eSPI for Wio (Idk why I didn't use the library manager): https://github.com/Seeed-Studio/Seeed_Arduino_LCD
 */
 
@@ -31,10 +31,7 @@ TFTScreen* tftScreen;
 WiFiMulti wifiMulti;
 
 void setup() {
-  //Logging::writeln("Waiting 5 seconds...");
-  //delay(5000);
   Logging::writeln("Running setup... ");
-
   Logging::writeln("Initializing TFTScreen");
   tftScreen = TFTScreen::getInstance();
 
@@ -64,7 +61,6 @@ bool setupWifi() {
   for(int i = 0; i < config::numberOfNetworks; i++) {
     Logging::writeln(i + 1);
     Logging::writeln(config::wifiCredentials[i][0]);
-    Logging::writeln(config::wifiCredentials[i][1]);
     wifiMulti.addAP(
       config::wifiCredentials[i][0], 
       config::wifiCredentials[i][1]
