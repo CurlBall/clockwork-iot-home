@@ -9,11 +9,23 @@
 #include "TFTScreen.h"
 #include "HomeScreen.h"
 
-//#define DEBUG_ON 1; // Will uncomment when I figure out a good way for this to be referenced
-
 // Very, very, VERY interesting stuff:
 // https://arduino.github.io/arduino-cli/0.21/sketch-specification/
-// Example for helping users download dependencies: http://librarymanager#rpcwifi
+
+/**
+    Board Dependencies:
+- Seeed SAMD Boards: http://boardsmanager#seeed_samd_boards
+
+    Library Manager Dependencies: 
+- rpcWiFi: http://librarymanager#rpcWiFi (And it's dependencies)
+- NTPClient (Fabrice Weinberg): http://librarymanager#NTPClient
+- SAMD51 Real-Time Clock (Seeed Studio): http://librarymanager#Seeed_Arduino_RTC
+- Time (Michael Margolis) (Maybe automatically downloads for Timezone lib?): http://librarymanager#Time
+- Timezone (Jack Christensen): http://librarymanager#Timezone
+
+    Download manually and Sketch > Include Library > Add .ZIP Library:  §
+- TFT_eSPI for Wio (Idk why I didn't use the library manager): https://github.com/Seeed-Studio/Seeed_Arduino_LCD
+*/
 
 TFTScreen* tftScreen;
 WiFiMulti wifiMulti;
