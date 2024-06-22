@@ -15,9 +15,12 @@ HomeScreen::HomeScreen() {
   TextSettings* clockSettings = new TextSettings();
   clockSettings->setTextDatum(TR_DATUM);
   clockSettings->setTextSize(2);
+  clockSettings->setBgColor(TFTSCREEN_DEFAULT_BG_COLOR);
   
   TextSettings* dateSettings = new TextSettings();
   dateSettings->setTextDatum(TR_DATUM);
+  dateSettings->setBgColor(TFTSCREEN_DEFAULT_BG_COLOR);
+  dateSettings->setTextPadding(150);
 
   // This doesn't exactly make things simpler.
   int sidePadding = 6;
