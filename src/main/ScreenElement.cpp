@@ -10,12 +10,11 @@ void ScreenElement::setTftReference(TFT_eSPI *tftRef) {
   _tftRef = tftRef;
 }
 
-ScreenElement::ScreenElement(Point* referencePoint) {
-  _referencePoint = referencePoint;
-}
+ScreenElement::ScreenElement(Point* referencePoint) 
+: ScreenElement(referencePoint, new TextSettings()) {}
 
-ScreenElement::ScreenElement(Point* referencePoint, TextSettings* textSettings) 
-  : ScreenElement(referencePoint) {   // Idk if this works
+ScreenElement::ScreenElement(Point* referencePoint, TextSettings* textSettings) {
+  _referencePoint = referencePoint;
   _textSettings = textSettings;
 }
 
