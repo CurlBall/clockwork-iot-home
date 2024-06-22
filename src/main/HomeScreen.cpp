@@ -3,15 +3,51 @@
 #include "TimeRTC.h"
 #include "Logging.h"
 #include "TFTScreen.h"
+#include "Point.h"
+#include "TextSettings.h"
 #include <TFT_eSPI.h>
 #include <examples/320x240/All_Free_Fonts_Demo/Free_Fonts.h>
 
-HomeScreen::HomeScreen() {
+HomeScreen::HomeScreen() : ContentScreen() {
   _timeRTC = TimeRTC::getInstance();  // NOTE: Shared instance
+  
+  // Frontend "made easy"
+  TextSettings* clockSettings = new TextSettings();
+  clockSettings->setTextDatum(TR_DATUM);
+  clockSettings->setTextSize(2);
+  clockSettings->setBgColor(TFTSCREEN_DEFAULT_BG_COLOR);
+  
+  TextSettings* dateSettings = new TextSettings();
+  dateSettings->setTextDatum(TR_DATUM);
+  dateSettings->setBgColor(TFTSCREEN_DEFAULT_BG_COLOR);
+  dateSettings->setTextPadding(150);
+
+  // This doesn't exactly make things simpler.
+  int sidePadding = 6;
+  int topPadding = 10;
+  int clockXPos = TFTSCREEN_MAX_X - sidePadding;
+  int clockYPos = TFTSCREEN_STATUSBAR_THICKNESS + topPadding;
+  _clockElement = new ScreenElement(
+    new Point(clockXPos, clockYPos),
+    clockSettings
+  );
+
+  const uint16_t dateXPos = clockXPos;
+  const uint16_t dateYPos = clockYPos + 48;
+  _dateElement = new ScreenElement(
+    new Point(dateXPos, dateYPos),
+    dateSettings
+  );
+
+  const uint16_t weekdayXPos = clockXPos;
+  const uint16_t weekdayYPos = dateYPos + 20;
+  _weekdayElement = new ScreenElement(
+    new Point(weekdayXPos, weekdayYPos),
+    dateSettings
+  );
+
   updateClockDisplay();
   updateDateDisplay();
-  _clockFont = TFTSCREEN_DEFAULT_FONT;
-  _isRedrawQueued = true;
 }
 
 HomeScreen::~HomeScreen() {
@@ -19,14 +55,6 @@ HomeScreen::~HomeScreen() {
 }
 
 void HomeScreen::drawScreen() {
-  const uint16_t sidePadding = 6;
-  const uint16_t clockXPos = TFTSCREEN_MAX_X - sidePadding;
-  const uint16_t clockYPos = TFTSCREEN_STATUSBAR_THICKNESS + 10;
-  const uint16_t dateXPos = clockXPos;
-  const uint16_t dateYPos = clockYPos + 40;
-  const uint16_t weekdayXPos = clockXPos;
-  const uint16_t weekdayYPos = dateYPos + 20;
-
   // Format time
   char clockStr[9];
   sprintf(clockStr, "%.2d:%.2d:%.2d", _hour, _minute, _second);
@@ -35,18 +63,23 @@ void HomeScreen::drawScreen() {
   char dateStr[11];
   sprintf(dateStr, "%.2d/%.2d/%.4d", _day, _month, _year);
 
-  // Almost a have to do thing is to choose the correct font/size/etc.
-  // Maybe use template pattern?
-  _tftRef->setTextDatum(TR_DATUM);
-  _tftRef->setTextColor(TFTSCREEN_DEFAULT_TEXT_COLOR, TFTSCREEN_DEFAULT_BG_COLOR);
-  _tftRef->setFreeFont(_clockFont);
-  _tftRef->setTextSize(2);
-  _tftRef->drawString(clockStr, clockXPos, clockYPos);
+  // Only clock is being drawn...
+  if(_clockElement->isRedrawQueued()) {
+    _clockElement->drawElement(clockStr);
+  }
+  if(_dateElement->isRedrawQueued()) {
+    _dateElement->drawElement(dateStr);
+  }
+  if(_weekdayElement->isRedrawQueued()) {
+    _weekdayElement->drawElement(_weekday);
+  }
+}
 
-  _tftRef->setTextSize(1);
-  _tftRef->drawString(dateStr, dateXPos, dateYPos);
-
-  _tftRef->drawString(_weekday, weekdayXPos, weekdayYPos);
+void HomeScreen::drawScreenForced() {
+  _clockElement->queueForRedraw();
+  _dateElement->queueForRedraw();
+  _weekdayElement->queueForRedraw();
+  drawScreen();
 }
 
 void HomeScreen::updateContent() {
@@ -54,8 +87,11 @@ void HomeScreen::updateContent() {
 
   if(_timeRTC->getSeconds() != _second) {
     updateClockDisplay();
+    _clockElement->queueForRedraw();
     if(_timeRTC->getDay() != _day) {
       updateDateDisplay();
+      _dateElement->queueForRedraw();
+      _weekdayElement->queueForRedraw();
     }
     _isRedrawQueued = true;
   }

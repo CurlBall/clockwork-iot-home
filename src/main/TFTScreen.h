@@ -17,7 +17,7 @@
 // So I have the newest TFT lib being used, but it might require some further config to have it not start with a black screen.
 class TFTScreen {
   private:
-    TFT_eSPI _tft;
+    TFT_eSPI* _tft;
     ContentScreen* _activeScreen;
     ContentScreen* _allScreens[TFTSCREEN_MAX_CSCREENS];
     uint8_t _numOfScreens;
