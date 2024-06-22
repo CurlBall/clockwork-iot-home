@@ -1,12 +1,19 @@
 #ifndef config_h
 #define config_h
 
+#include <Arduino.h>
 #include <Timezone.h>
+#include <stdint.h>
 
 class config {
-   public:
-    static constexpr const char* ssid = "SSID";
-    static constexpr const char* wifiPassword = "WiFiPassword";
+  public:
+    // wifiCredentials index correspons to one WiFi network.
+    // numberOfNetworks should be manually changed, depending on how many networks are used.
+    static constexpr uint8_t numberOfNetworks = 2;
+    static constexpr const char* wifiCredentials[numberOfNetworks][2] = {
+      {"SSID1", "SSID2"},
+      {"PASS1", "PASS2"}
+    };
 
     // For default time, it works during summer. For winter, I'm not so sure...
     static constexpr TimeChangeRule standardTime = {"CET", Last, Sun, Oct, 3, 60};   // Standard Time (Default: Sweden)
