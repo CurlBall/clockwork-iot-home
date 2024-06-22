@@ -8,7 +8,7 @@
 #include <TFT_eSPI.h>
 #include <examples/320x240/All_Free_Fonts_Demo/Free_Fonts.h>
 
-HomeScreen::HomeScreen() {
+HomeScreen::HomeScreen() : ContentScreen() {
   _timeRTC = TimeRTC::getInstance();  // NOTE: Shared instance
   
   // Frontend "made easy"

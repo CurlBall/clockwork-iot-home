@@ -12,7 +12,6 @@ class ScreenElement {
     Point* _referencePoint;   // Text will be drawn from here, works in conjunction with TextSettings::_textDatum
     TextSettings* _textSettings;
   public:
-    static void setTftReference(TFT_eSPI* tftRef);
     ScreenElement(Point* referencePoint);
     ScreenElement(Point* referencePoint, TextSettings* textSettings);
     virtual ~ScreenElement();

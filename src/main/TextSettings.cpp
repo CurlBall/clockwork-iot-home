@@ -1,5 +1,6 @@
 #include "TextSettings.h"
 #include "TFTScreen.h"
+#include "TFTInstance.h"
 #include "ContentScreen.h"
 #include "Logging.h"
 #include <stdint.h>
@@ -8,20 +9,9 @@
 
 TFT_eSPI* TextSettings::_tftRef = nullptr;
 
-// 
-void TextSettings::setTftReference(TFT_eSPI *tftRef) {
-  if(_tftRef == nullptr) {
-    _tftRef = tftRef;
-  }
-  else {
-    Logging::writeln("TextSettings::_tftRef already set!", LoggingLevel::Warning);
-  }
-}
-
 TextSettings::TextSettings() {
   if(_tftRef == nullptr) {
-    Logging::writeln("TextSettings::_tftRef wasn't set", LoggingLevel::Cataclysmic);
-    delay(10000);
+    _tftRef = TFTInstance::getTftInstance();
   }
 
   _font = TFTSCREEN_DEFAULT_FONT;

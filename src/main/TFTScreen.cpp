@@ -4,37 +4,28 @@
 #include "TFTScreen.h"
 #include "Logging.h"
 #include "ContentScreen.h"
-#include "TextSettings.h"
-#include "ScreenElement.h"
+#include "TFTInstance.h"
 
 TFTScreen::TFTScreen() {
+  _tft = TFTInstance::getTftInstance();
   _numOfScreens = 0;
   _currentScreenIndex = -1;
 
-  _tft.begin();
-  _tft.setRotation(3);
-  _tft.fillScreen(TFTSCREEN_DEFAULT_BG_COLOR);
-  _tft.setTextColor(TFTSCREEN_DEFAULT_TEXT_COLOR);
-  _tft.setFreeFont(TFTSCREEN_DEFAULT_FONT);
-
-  // Pass TFT references. 
-  // I'm not happy with this. 
-  // I should wrap the object in a singleton.
-  // I fucking love singletons
-  ScreenElement::setTftReference(&_tft);
-  TextSettings::setTftReference(&_tft);
+  _tft->fillScreen(TFTSCREEN_DEFAULT_BG_COLOR);
+  _tft->setTextColor(TFTSCREEN_DEFAULT_TEXT_COLOR);
+  _tft->setFreeFont(TFTSCREEN_DEFAULT_FONT);
 
   // Screen test
   if(DEBUG_ON) {
-    _tft.drawPixel(0, 0, TFT_MAGENTA);     // Top left
-    _tft.drawPixel(0, 239, TFT_MAGENTA);   // Bottom Left
-    _tft.drawPixel(319, 239, TFT_MAGENTA); // Bottom Right
-    _tft.drawPixel(319, 0, TFT_MAGENTA);   // Top Right
+    _tft->drawPixel(0, 0, TFT_MAGENTA);     // Top left
+    _tft->drawPixel(0, 239, TFT_MAGENTA);   // Bottom Left
+    _tft->drawPixel(319, 239, TFT_MAGENTA); // Bottom Right
+    _tft->drawPixel(319, 0, TFT_MAGENTA);   // Top Right
   }
 
-  _tft.setTextSize(2);
-  _tft.setTextDatum(MC_DATUM);
-  _tft.drawString("KLOCKWORK", TFTSCREEN_MAX_X / 2, TFTSCREEN_MAX_Y / 2);
+  _tft->setTextSize(2);
+  _tft->setTextDatum(MC_DATUM);
+  _tft->drawString("KLOCKWORK", TFTSCREEN_MAX_X / 2, TFTSCREEN_MAX_Y / 2);
   Logging::writeln("Constructor done");
 }
 
@@ -62,11 +53,11 @@ void TFTScreen::update() {
 
 void TFTScreen::nextScreen() {
   // Clear screen (Should probably use an attribute for this, BG colour or something)
-  _tft.fillScreen(TFTSCREEN_DEFAULT_BG_COLOR);
+  _tft->fillScreen(TFTSCREEN_DEFAULT_BG_COLOR);
 
   // Redraw StatusBar [TEMP] (Should do with the colours as I did with TFTSCREEN_DEFAULT_BG_COLOR and the like)
-  _tft.fillRect(0, 0, TFTSCREEN_MAX_X, TFTSCREEN_STATUSBAR_THICKNESS, TFT_DARKCYAN);
-  _tft.drawLine(0, TFTSCREEN_STATUSBAR_THICKNESS, TFTSCREEN_MAX_X, TFTSCREEN_STATUSBAR_THICKNESS, TFT_WHITE);
+  _tft->fillRect(0, 0, TFTSCREEN_MAX_X, TFTSCREEN_STATUSBAR_THICKNESS, TFT_DARKCYAN);
+  _tft->drawLine(0, TFTSCREEN_STATUSBAR_THICKNESS, TFTSCREEN_MAX_X, TFTSCREEN_STATUSBAR_THICKNESS, TFT_WHITE);
 
   // Choose next screen and assign it as active.
   _currentScreenIndex++;
@@ -84,7 +75,6 @@ bool TFTScreen::addScreen(ContentScreen* newScreen) {
     return false;
   }
 
-  newScreen->setTftReference(&_tft);
   _allScreens[_numOfScreens] = newScreen;
   _numOfScreens++;
   if(_numOfScreens == 1) {

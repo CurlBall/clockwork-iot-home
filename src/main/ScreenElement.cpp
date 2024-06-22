@@ -2,18 +2,19 @@
 #include "TextSettings.h"
 #include "Point.h"
 #include "Logging.h"
+#include "TFTInstance.h"
 
 
 TFT_eSPI* ScreenElement::_tftRef = nullptr;
-
-void ScreenElement::setTftReference(TFT_eSPI *tftRef) {
-  _tftRef = tftRef;
-}
 
 ScreenElement::ScreenElement(Point* referencePoint) 
 : ScreenElement(referencePoint, new TextSettings()) {}
 
 ScreenElement::ScreenElement(Point* referencePoint, TextSettings* textSettings) {
+  if(_tftRef == nullptr) {
+    _tftRef = TFTInstance::getTftInstance();
+  }
+  
   _referencePoint = referencePoint;
   _textSettings = textSettings;
 }

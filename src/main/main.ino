@@ -11,6 +11,9 @@
 
 //#define DEBUG_ON 1; // Will uncomment when I figure out a good way for this to be referenced
 
+// Very, very, VERY interesting stuff:
+// https://arduino.github.io/arduino-cli/0.21/sketch-specification/
+// Example for helping users download dependencies: http://librarymanager#rpcwifi
 
 TFTScreen* tftScreen;
 WiFiMulti wifiMulti;

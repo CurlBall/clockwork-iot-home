@@ -4,6 +4,7 @@
 #include <TFT_eSPI.h>
 #include <examples/320x240/All_Free_Fonts_Demo/Free_Fonts.h>
 
+// I'm thinking... These shouldn't be shared, unless ScreenElements actually WILL be deleted.
 class TextSettings {
   private:
     static TFT_eSPI* _tftRef;
@@ -14,7 +15,6 @@ class TextSettings {
     uint8_t _textSize;
     uint8_t _textDatum;
   public:
-    static void setTftReference(TFT_eSPI* tftRef);
     TextSettings();
     void apply();
     void setFont(const GFXfont* font);
