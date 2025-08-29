@@ -7,15 +7,18 @@
 #include "TFTInstance.h"
 
 TFTScreen::TFTScreen() {
+  // A screen is a window. A semi-program, a little viewport with it's own interesting features.
+  // Should be able to toggle between these in the future, this class is set up for it
   _tft = TFTInstance::getTftInstance();
   _numOfScreens = 0;
   _currentScreenIndex = -1;
 
+  // Set default styles
   _tft->fillScreen(TFTSCREEN_DEFAULT_BG_COLOR);
   _tft->setTextColor(TFTSCREEN_DEFAULT_TEXT_COLOR);
   _tft->setFreeFont(TFTSCREEN_DEFAULT_FONT);
 
-  // Screen test
+  // Screen test. Draw pixel in each corner
   if(DEBUG_ON) {
     _tft->drawPixel(0, 0, TFT_MAGENTA);     // Top left
     _tft->drawPixel(0, 239, TFT_MAGENTA);   // Bottom Left
@@ -23,6 +26,7 @@ TFTScreen::TFTScreen() {
     _tft->drawPixel(319, 0, TFT_MAGENTA);   // Top Right
   }
 
+  // Bootup screen
   _tft->setTextSize(2);
   _tft->setTextDatum(MC_DATUM);
   _tft->drawString("KLOCKWORK", TFTSCREEN_MAX_X / 2, TFTSCREEN_MAX_Y / 2);
@@ -52,7 +56,7 @@ void TFTScreen::update() {
 }
 
 void TFTScreen::nextScreen() {
-  // Clear screen (Should probably use an attribute for this, BG colour or something)
+  // Clear screen
   _tft->fillScreen(TFTSCREEN_DEFAULT_BG_COLOR);
 
   // Redraw StatusBar [TEMP] (Should do with the colours as I did with TFTSCREEN_DEFAULT_BG_COLOR and the like)
@@ -77,6 +81,8 @@ bool TFTScreen::addScreen(ContentScreen* newScreen) {
 
   _allScreens[_numOfScreens] = newScreen;
   _numOfScreens++;
+
+  // If this is the only available screen, switch to it.
   if(_numOfScreens == 1) {
     nextScreen();
   }
