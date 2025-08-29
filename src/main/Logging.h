@@ -1,6 +1,8 @@
 #ifndef Logging_h
 #define Logging_h
 
+#include "Logging.h"
+
 #define DEBUG_ON 1 // Shouldn't be here, but... Well.
 #define DEFAULT_BAUD_RATE 19200
 
@@ -15,12 +17,14 @@ class Logging {
   private:
     Logging();
     static bool canWrite();
+    static void writeLogLevel(LoggingLevel logLevel);
   public: 
     // I want me a 'writef' function...  
     static void write(const char* message, LoggingLevel logLevel = LoggingLevel::Normal);
     static void writeln(const char* message, LoggingLevel logLevel = LoggingLevel::Normal);
     static void write(int number);
     static void writeln(int number);
+    static void writelnf(const char* format, LoggingLevel logLevel, ...);
 };
 
 #endif
