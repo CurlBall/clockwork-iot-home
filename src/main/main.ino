@@ -29,12 +29,14 @@
 
 TFTScreen* tftScreen;
 WiFiMulti wifiMulti;
+unsigned long millisTimestamp = 0;
+uint8_t loopDelay = 100;
 
 void setup() {
   Logging::writeln("Running setup... ");
   Logging::writeln("Initializing TFTScreen");
   tftScreen = TFTScreen::getInstance();
-
+  Wire.begin(); // Enables I2C, intended for DHT11.
 
   // WiFi setup
   if(setupWifi()) {
@@ -53,8 +55,11 @@ void setup() {
 
 
 void loop() {
-  tftScreen->update();
-  delay(40);
+  unsigned long currentMillis = millis();
+  if(currentMillis >= millisTimestamp + loopDelay) {
+    tftScreen->update();
+    millisTimestamp = currentMillis;
+  }
 }
 
 bool setupWifi() {
