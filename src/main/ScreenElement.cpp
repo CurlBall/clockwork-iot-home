@@ -8,7 +8,7 @@
 TFT_eSPI* ScreenElement::_tftRef = nullptr;
 
 ScreenElement::ScreenElement(Point* referencePoint) 
-: ScreenElement(referencePoint, new TextSettings()) {}
+  : ScreenElement(referencePoint, new TextSettings()) {}
 
 ScreenElement::ScreenElement(Point* referencePoint, TextSettings* textSettings) {
   if(_tftRef == nullptr) {
@@ -36,4 +36,13 @@ void ScreenElement::queueForRedraw(bool isQueued) {
 
 bool ScreenElement::isRedrawQueued() {
   return _isRedrawQueued;
+}
+
+void ScreenElement::clear(uint8_t characters) {
+  char spaces[characters + 1];
+  for(uint8_t i = 0; i <= characters; i++) {
+    spaces[i] = ' ';
+  }
+
+  drawElement(spaces);
 }

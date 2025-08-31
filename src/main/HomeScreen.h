@@ -8,6 +8,10 @@
 #include "TimeRTC.h"
 #include "ContentScreen.h"
 #include "ScreenElement.h"
+#include "Grove_Temperature_And_Humidity_Sensor.h"
+
+#define DHTPIN D0 // Grove port on the right side of serial port
+#define DHTTYPE DHT11
 
 class HomeScreen : public ContentScreen {
   private:
@@ -25,9 +29,27 @@ class HomeScreen : public ContentScreen {
 
     ScreenElement* _weekdayElement;
     const char* _weekday;
+
+    // Temp / Humidity
+    DHT* _dht;
+    unsigned long _dhtMillisTimestamp = 0;
+    unsigned long _dhtReadingDelay = 5000;
+
+    // Flags that indicate to next main loop iteration that have time to get DHT readings
+    bool _dhtReadyReading;
+    bool _clockReadyReading;
+
+    ScreenElement* _temperatureElement;
+    float _temperature;
+    const uint8_t _tempCharBufferSize = 7;
+
+    ScreenElement* _humidityElement;
+    float _humidity;
+    const uint8_t _humiCharBufferSize = 7;
     
     void updateClockDisplay();
     void updateDateDisplay();
+    void updateDHTDisplay();
   public:
     HomeScreen();
     virtual ~HomeScreen() override;

@@ -12,6 +12,7 @@ TFT_eSPI* TFTInstance::getTftInstance() {
   if(_tft == nullptr) {
     Logging::writeln("Creating TFT_eSPI object");
     _tft = new TFT_eSPI();
+    Logging::writelnf("TFT_eSPI initialized. Version: %s", LoggingLevel::Normal, TFT_ESPI_VERSION);
     _tft->begin();
     _tft->setRotation(3);
   }
