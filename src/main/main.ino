@@ -62,7 +62,7 @@ void loop() {
   }
 
   // If .run() is slow, maybe run it every now and then, millis style
-  if(wifiMulti.run(500) != WL_CONNECTED) {
+  if(wifiMulti.run() != WL_CONNECTED) {
     Logging::writeln("WL_CONNECTED = false", LoggingLevel::Warning);
   }
 }
