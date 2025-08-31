@@ -10,7 +10,7 @@
 #include "ScreenElement.h"
 #include "Grove_Temperature_And_Humidity_Sensor.h"
 
-#define DHTPIN D0 // or 15. Right side of serial port
+#define DHTPIN D0 // Grove port on the right side of serial port
 #define DHTTYPE DHT11
 
 class HomeScreen : public ContentScreen {
@@ -32,7 +32,7 @@ class HomeScreen : public ContentScreen {
 
     // Temp / Humidity
     DHT* _dht;
-    unsigned long _dhtMillisTimestamp;
+    unsigned long _dhtMillisTimestamp = 0;
     unsigned long _dhtReadingDelay = 5000;
 
     // Flags that indicate to next main loop iteration that have time to get DHT readings
@@ -41,9 +41,11 @@ class HomeScreen : public ContentScreen {
 
     ScreenElement* _temperatureElement;
     float _temperature;
+    const uint8_t _tempCharBufferSize = 7;
 
     ScreenElement* _humidityElement;
     float _humidity;
+    const uint8_t _humiCharBufferSize = 7;
     
     void updateClockDisplay();
     void updateDateDisplay();

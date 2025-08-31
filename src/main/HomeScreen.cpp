@@ -101,10 +101,10 @@ void HomeScreen::drawScreen() {
   char dateStr[11];
   sprintf(dateStr, "%.2d/%.2d/%.4d", _day, _month, _year);
 
-  char temperatureStr[7];
+  char temperatureStr[_tempCharBufferSize];
   sprintf(temperatureStr, "%.1f C", _temperature);
 
-  char humidityStr[7];
+  char humidityStr[_humiCharBufferSize];
   sprintf(humidityStr, "%.1f%%", _humidity);
 
   // Only clock is being drawn...
@@ -212,5 +212,9 @@ void HomeScreen::updateDHTDisplay() {
   }
   else {
     Logging::writeln("DHT sensor readings failed", LoggingLevel::Warning);
+    _humidity = 0.0f;
+    _temperature = 0.0f;
+    _temperatureElement->clear(_tempCharBufferSize - 1);
+    _humidityElement->clear(_humiCharBufferSize - 1);
   }
 }
