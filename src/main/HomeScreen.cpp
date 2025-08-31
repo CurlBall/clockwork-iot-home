@@ -11,6 +11,10 @@
 #include "Grove_Temperature_And_Humidity_Sensor.h"
 
 HomeScreen::HomeScreen() : ContentScreen() {
+  // Initializations
+  _dhtReadyReading = false;
+  _clockReadyReading = false;
+
   // Get components
   _timeRTC = TimeRTC::getInstance();  // NOTE: Shared instance
   
@@ -132,26 +136,44 @@ void HomeScreen::drawScreenForced() {
 
 // Here we set the queueForRedraw variables
 void HomeScreen::updateContent() {
-  _timeRTC->synchronize();
+  // Queue redraws for DHT
+  unsigned long currentMillis = millis();
+  if(_dhtReadyReading && _clockReadyReading) {
+    // If DHT min reading delay has passed AND last cycle incremented time on display
+    // we may retrieve the updated values without messing up the display clock
+    updateDHTDisplay();
+    _isRedrawQueued = true;
+
+    _dhtReadyReading = false;
+    _clockReadyReading = false;
+    _dhtMillisTimestamp = millis();
+  }
+  else if(currentMillis >= _dhtMillisTimestamp + _dhtReadingDelay) {
+    _dhtReadyReading = true;
+  }
+
 
   // Queue redraws for time related stuff
+  _timeRTC->synchronize();
   if(_timeRTC->getSeconds() != _second) {
+    // If time has changed, update
     updateClockDisplay();
     _clockElement->queueForRedraw();
+
+    // If date has changed as consequence of time passing, update
     if(_timeRTC->getDay() != _day) {
       updateDateDisplay();
       _dateElement->queueForRedraw();
       _weekdayElement->queueForRedraw();
     }
+
+    // Since elements have changed, activate flag to request redrawing with updated values
     _isRedrawQueued = true;
-  }
 
-  // Queue redraws for DHT
-  unsigned long currentMillis = millis();
-  if(currentMillis >= _dhtMillisTimestamp + _dhtReadingDelay) {
-    updateDHTDisplay();
-
-    _dhtMillisTimestamp = millis();
+    // Also check if DHT readings are queued
+    if(_dhtReadyReading) {
+      _clockReadyReading = true;
+    }
   }
 }
 
@@ -173,7 +195,7 @@ void HomeScreen::updateDHTDisplay() {
   bool readingSuccess = _dht->readTempAndHumidity(readings) == 0;
   
   if(readingSuccess) {
-    Logging::writeln("DHT reading success");
+    //Logging::writeln("DHT reading success");
     float temperature = readings[1];
     float humidity = readings[0];
     Logging::writelnf("Temp: %.1f\nHumidity: %.1f", LoggingLevel::Normal, temperature, humidity);

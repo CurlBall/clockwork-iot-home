@@ -35,6 +35,10 @@ class HomeScreen : public ContentScreen {
     unsigned long _dhtMillisTimestamp;
     unsigned long _dhtReadingDelay = 5000;
 
+    // Flags that indicate to next main loop iteration that have time to get DHT readings
+    bool _dhtReadyReading;
+    bool _clockReadyReading;
+
     ScreenElement* _temperatureElement;
     float _temperature;
 
