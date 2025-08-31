@@ -33,6 +33,7 @@ unsigned long millisTimestamp = 0;
 uint8_t loopDelay = 50;
 
 void setup() {
+  delay(1000);
   Logging::writeln("Running setup... ");
   Logging::writeln("Initializing TFTScreen");
   tftScreen = TFTScreen::getInstance();
