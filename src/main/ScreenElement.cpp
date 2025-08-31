@@ -37,3 +37,12 @@ void ScreenElement::queueForRedraw(bool isQueued) {
 bool ScreenElement::isRedrawQueued() {
   return _isRedrawQueued;
 }
+
+void ScreenElement::clear(uint8_t characters) {
+  char spaces[characters + 1];
+  for(uint8_t i = 0; i <= characters; i++) {
+    spaces[i] = ' ';
+  }
+
+  drawElement(spaces);
+}

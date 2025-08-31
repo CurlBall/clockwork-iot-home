@@ -18,6 +18,7 @@ class ScreenElement {
     void drawElement(const char* content);
     void queueForRedraw(bool isChanged = true);
     bool isRedrawQueued();
+    void clear(uint8_t characters);
 };
 
 #endif
