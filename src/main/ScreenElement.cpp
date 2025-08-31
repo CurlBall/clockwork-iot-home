@@ -8,7 +8,7 @@
 TFT_eSPI* ScreenElement::_tftRef = nullptr;
 
 ScreenElement::ScreenElement(Point* referencePoint) 
-: ScreenElement(referencePoint, new TextSettings()) {}
+  : ScreenElement(referencePoint, new TextSettings()) {}
 
 ScreenElement::ScreenElement(Point* referencePoint, TextSettings* textSettings) {
   if(_tftRef == nullptr) {
