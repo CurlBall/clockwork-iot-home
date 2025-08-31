@@ -30,7 +30,7 @@
 TFTScreen* tftScreen;
 WiFiMulti wifiMulti;
 unsigned long millisTimestamp = 0;
-uint8_t loopDelay = 100;
+uint8_t loopDelay = 50;
 
 void setup() {
   Logging::writeln("Running setup... ");
@@ -59,6 +59,11 @@ void loop() {
   if(currentMillis >= millisTimestamp + loopDelay) {
     tftScreen->update();
     millisTimestamp = currentMillis;
+  }
+
+  // If .run() is slow, maybe run it every now and then, millis style
+  if(wifiMulti.run(500) != WL_CONNECTED) {
+    Logging::writeln("WL_CONNECTED = false", LoggingLevel::Warning);
   }
 }
 
