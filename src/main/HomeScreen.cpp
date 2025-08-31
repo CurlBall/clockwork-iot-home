@@ -212,6 +212,8 @@ void HomeScreen::updateDHTDisplay() {
   }
   else {
     Logging::writeln("DHT sensor readings failed", LoggingLevel::Warning);
+    
+    // Reset DHT readings, then clear that portion of the screen
     _humidity = 0.0f;
     _temperature = 0.0f;
     _temperatureElement->clear(_tempCharBufferSize - 1);
