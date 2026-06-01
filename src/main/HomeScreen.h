@@ -41,11 +41,11 @@ class HomeScreen : public ContentScreen {
 
     ScreenElement* _temperatureElement;
     float _temperature;
-    const uint8_t _tempCharBufferSize = 7;
+    const uint8_t _tempCharBufferSize = 8;
 
     ScreenElement* _humidityElement;
     float _humidity;
-    const uint8_t _humiCharBufferSize = 7;
+    const uint8_t _humiCharBufferSize = 8;
     
     void updateClockDisplay();
     void updateDateDisplay();
