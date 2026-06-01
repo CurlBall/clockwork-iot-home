@@ -16,6 +16,7 @@ HomeScreen::HomeScreen() : ContentScreen() {
   _clockReadyReading = false;
 
   // Get components
+  // TODO: Not used, internet required for time but shouldn't be the case
   _timeRTC = TimeRTC::getInstance();  // NOTE: Shared instance
   
   Logging::writeln("Initializing DHT");
@@ -24,6 +25,7 @@ HomeScreen::HomeScreen() : ContentScreen() {
   Logging::writeln("DHT initialized");
   
   // Frontend "made easy"
+  // TODO: Why did I not make a constructor?
   TextSettings* clockSettings = new TextSettings();
   clockSettings->setTextDatum(TR_DATUM);
   clockSettings->setTextSize(2);
