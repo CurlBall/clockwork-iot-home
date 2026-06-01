@@ -5,7 +5,6 @@
 #include "config.h"
 #include "rootCertificates.h"
 #include "Logging.h"
-#include "HTTPSRequestHandler.h"
 #include "TFTScreen.h"
 #include "HomeScreen.h"
 
