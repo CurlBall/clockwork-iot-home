@@ -1,4 +1,49 @@
 # Klåckwörk
+Is it a clock? Is it a thermometer? A humidity reader? Compiling and uploading this to your [Wio Terminal](https://wiki.seeedstudio.com/Wio_Terminal_Intro/) will give you all of the above! A real nice-to-have if you have a USB-hub with a charging port on your desk.
+
+<p align="center">
+  <img src="klockwork-example.png" width="40%" align=center/>
+</p>
+
+## How to set up
+* Follow the steps [here](https://wiki.seeedstudio.com/Wio-Terminal-Getting-Started/#software), where you will download Arduino IDE, and add the Wio board library.
+* Clone the repo, and open up the `src/main` folder in the IDE.
+* Download the libraries using the Library Manager, along with their dependencies if prompted to:
+  * [NTPClient](https://github.com/arduino-libraries/NTPClient)
+  * [Grove Temperature And Humidity Sensor](https://github.com/Seeed-Studio/Grove_Temperature_And_Humidity_Sensor) _(The hardware is optional, but the library is necessary.)_
+  * [Seeed Arduino RTC](https://github.com/Seeed-Studio/Seeed_Arduino_RTC)
+  * [Seeed Arduino rpcWiFi](https://github.com/Seeed-Studio/Seeed_Arduino_rpcWiFi) _(version >= 1.1.0)_
+  * [Timezone](https://github.com/JChristensen/Timezone)
+  * Time ([link?](https://playground.arduino.cc/Code/Time/))
+* Create a file named `config.h` in `src/main`:
+```cpp
+#ifndef config_h
+#define config_h
+
+#include <Arduino.h>
+#include <Timezone.h>
+#include <stdint.h>
+
+class config {
+  public:
+    // wifiCredentials index correspons to one WiFi network.
+    // numberOfNetworks should be manually changed, depending on how many networks are used.
+    static constexpr uint8_t numberOfNetworks = 2;
+    static constexpr const char* wifiCredentials[numberOfNetworks][2] = {
+      {"SSID1", "PASS1"},
+      {"SSID2", "PASS2"}
+    };
+
+    // Refer to Timezone documentation for setting up the timezone. Default is Sweden.
+    static constexpr TimeChangeRule standardTime = {"CET", Last, Sun, Oct, 3, 60};   // Standard Time (Default: Sweden)
+    static constexpr TimeChangeRule summerTime = {"CEST", Last, Sun, Mar, 3, 120};   // Summer Time (Default: Sweden)
+};
+
+#endif
+```
+* I'm writing this at 3 AM and I'm sure I've forgotten something. Let me know.
+
+# Legacy README
 ## Ideas
 - Almanac
   - Categorized roughly as small, normal or big events, which changes how far ahead in the future they are shown.
@@ -7,7 +52,6 @@
 - Primitive PC application that is used for defining events and reminders, as well as changing some settings. Start with a console program. 
 
 ## Requirements (Wio)
-I don't like it, but I'm gonna have to go along with it!
 
 ### Functional Requirements
 - R1: The system shall always display the time.
