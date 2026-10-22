@@ -2,15 +2,20 @@
 Is it a clock? Is it a thermometer? A humidity reader? Compiling and uploading this to your [Wio Terminal](https://wiki.seeedstudio.com/Wio_Terminal_Intro/) will give you all of the above! A real nice-to-have if you have a USB-hub with a charging port on your desk.
 
 <p align="center">
-  <img src="klockwork-example.png" width="40%" align=center/>
+  <img src="klockwork-example.png" width="40%"/>
 </p>
 
 ## How to set up
+### Hardware Requirements
+* Wio Terminal
+* _(Optional)_ [Grove DHT11](https://wiki.seeedstudio.com/Grove-TemperatureAndHumidity_Sensor/)
+
+### Setup
 * Follow the steps [here](https://wiki.seeedstudio.com/Wio-Terminal-Getting-Started/#software), where you will download Arduino IDE, and add the Wio board library.
 * Clone the repo, and open up the `src/main` folder in the IDE.
 * Download the libraries using the Library Manager, along with their dependencies if prompted to:
   * [NTPClient](https://github.com/arduino-libraries/NTPClient)
-  * [Grove Temperature And Humidity Sensor](https://github.com/Seeed-Studio/Grove_Temperature_And_Humidity_Sensor) _(The hardware is optional, but the library is necessary.)_
+  * [Grove Temperature And Humidity Sensor](https://github.com/Seeed-Studio/Grove_Temperature_And_Humidity_Sensor) _(The hardware is optional, but the library is not)_
   * [Seeed Arduino RTC](https://github.com/Seeed-Studio/Seeed_Arduino_RTC)
   * [Seeed Arduino rpcWiFi](https://github.com/Seeed-Studio/Seeed_Arduino_rpcWiFi) _(version >= 1.1.0)_
   * [Timezone](https://github.com/JChristensen/Timezone)
@@ -26,22 +31,32 @@ Is it a clock? Is it a thermometer? A humidity reader? Compiling and uploading t
 
 class config {
   public:
-    // wifiCredentials index correspons to one WiFi network.
-    // numberOfNetworks should be manually changed, depending on how many networks are used.
+    // Add and remove however many SSID/Password combinations you'd like,
+    // and update numberOfNetworks to match the count.
     static constexpr uint8_t numberOfNetworks = 2;
     static constexpr const char* wifiCredentials[numberOfNetworks][2] = {
       {"SSID1", "PASS1"},
       {"SSID2", "PASS2"}
     };
 
-    // Refer to Timezone documentation for setting up the timezone. Default is Sweden.
+    // Refer to Timezone documentation for setting up the timezone. Default timezone is Sweden.
     static constexpr TimeChangeRule standardTime = {"CET", Last, Sun, Oct, 3, 60};   // Standard Time (Default: Sweden)
     static constexpr TimeChangeRule summerTime = {"CEST", Last, Sun, Mar, 3, 120};   // Summer Time (Default: Sweden)
 };
 
 #endif
 ```
-* I'm writing this at 3 AM and I'm sure I've forgotten something. Let me know.
+* _(Optional)_ Plug in the Grove DHT11 sensor into the slot with pins 13 & 15
+
+<p align="center">
+  <img src="https://files.seeedstudio.com/wiki/Wio-Terminal/img/WT-GROVE.jpeg" width="40%"/>
+<p/>
+  
+---
+
+_The section below is the legacy README I used when I began with the project. As I didn't initially intend for the project's visibility to be public, I used the README in the same manner I do with my other projects: Initial requirements, some ideas of where the project would go after the MVP stage, and I sprinkle in some silliness too._
+
+---
 
 # Legacy README
 ## Ideas
